@@ -14,8 +14,6 @@ resource "aws_cloudwatch_event_rule" "rule_chatbot" {
   tags = var.default_tags
 }
 
-
-
 resource "aws_cloudwatch_event_target" "sns" {
   rule      = aws_cloudwatch_event_rule.rule_chatbot.name
   target_id = "SendToSNS"
@@ -33,7 +31,7 @@ resource "aws_sns_topic" "aws_ec2" {
 }
 
 resource "aws_sns_topic_subscription" "event_slack_target" {
-  topic_arn = "aws_sns_topic.aws_ec2.arn"
+  topic_arn = aws_sns_topic.aws_ec2.arn
   protocol  = "https"
   endpoint  = "https://global.sns-api.chatbot.amazonaws.com"
 }
