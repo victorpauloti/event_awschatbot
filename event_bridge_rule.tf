@@ -22,24 +22,33 @@ resource "aws_cloudwatch_event_target" "sns" {
   arn       = data.aws_sns_topic.existing.arn
 }
 
-data "aws_sns_topic" "existing" {
-  name = "myHelloWorldNotifications"
+# se a policy ja existir
+# data "aws_sns_topic" "existing" {
+#   name = "myHelloWorldNotifications"
+# }
+
+resource "aws_sns_topic" "aws_ec2" {
+  name = "event_ec2"
+  tags = var.default_tags
 }
-# resource "aws_sns_topic_policy" "default" {
-#   arn    = aws_sns_topic.aws_logins.arn
-#   policy = data.aws_iam_policy_document.sns_topic_policy.json
-# }
 
-# data "aws_iam_policy_document" "sns_topic_policy" {
-#   statement {
-#     effect  = "Allow"
-#     actions = ["SNS:Publish"]
+resource "aws_sns_topic_policy" "default" {
+  arn    = aws_sns_topic.aws_ec2.arn
+  policy = data.aws_iam_policy_document.sns_topic_policy.json
+  
+}
 
-#     principals {
-#       type        = "Service"
-#       identifiers = ["events.amazonaws.com"]
-#     }
+data "aws_iam_policy_document" "sns_topic_policy" {
+  statement {
+    effect  = "Allow"
+    actions = ["SNS:Publish"]
 
-#     resources = [aws_sns_topic.aws_logins.arn]
-#   }
-# }
+    principals {
+      type        = "Service"
+      identifiers = ["events.amazonaws.com"]
+    }
+
+    resources = [aws_sns_topic.aws_ec2.arn]
+  }
+  
+}
