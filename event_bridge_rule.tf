@@ -4,12 +4,7 @@ resource "aws_cloudwatch_event_rule" "rule_chatbot" {
 
   event_pattern = jsonencode(
     {
-    "detail": {
-        "instance-id": "0fac74e47a2d9b9cc",
-        "state": "stopped"
-    },
-    "detail-type": "EC2 Instance State-change Notification",
-    "source": "aws.ec2"
+    "detail-type": "EC2 Instance State-change Notification"
     }
     )
 
