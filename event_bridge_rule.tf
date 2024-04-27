@@ -1,10 +1,12 @@
 resource "aws_cloudwatch_event_rule" "rule_chatbot" {
   name        = var.rule_name
-  description = "Event send notifications for chatbot"
+  description = "Event EC2 send notifications for chatbot"
 
   event_pattern = jsonencode(
     {
-    "detail-type": "EC2 Instance State-change Notification"
+    detail-type = [
+      "EC2 Instance State-change Notification" 
+      ]
     }
     )
 
