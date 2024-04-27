@@ -16,16 +16,15 @@ resource "aws_cloudwatch_event_rule" "rule_chatbot" {
 
 
 
-# resource "aws_cloudwatch_event_target" "sns" {
-#   rule      = aws_cloudwatch_event_rule.console.name
-#   target_id = "SendToSNS"
-#   arn       = aws_sns_topic.aws_logins.arn
-# }
+resource "aws_cloudwatch_event_target" "sns" {
+  rule      = aws_cloudwatch_event_rule.rule_chatbot.name
+  target_id = "SendToSNS"
+  arn       = data.aws_sns_topic.existing.arn
+}
 
-# resource "aws_sns_topic" "aws_logins" {
-#   name = "aws-console-logins"
-# }
-
+data "aws_sns_topic" "existing" {
+  name = "myHelloWorldNotifications"
+}
 # resource "aws_sns_topic_policy" "default" {
 #   arn    = aws_sns_topic.aws_logins.arn
 #   policy = data.aws_iam_policy_document.sns_topic_policy.json
