@@ -2,19 +2,19 @@ resource "aws_cloudwatch_event_rule" "rule_chatbot" {
   name        = var.rule_name
   description = "Event EC2 send notifications for SLACK"
 
-  event_pattern = jsonencode(
-    {
-    "source": [
-      "aws.ec2"
-    ],
-    detail-type = [
-      "EC2 Instance State-change Notification" 
-      ]
+  event_pattern = jsonencode({
+    "source": ["aws.ec2"],
+    detail-type = ["EC2 Instance State-change Notification"]
+    "detail" :{
+      "instance-id":["i-1234567890abcdef0"],
+      "state": ["stopped"]
     }
-    )
+    })
 
   tags = var.default_tags
 }
+
+
 
 # resource "aws_cloudwatch_event_target" "sns" {
 #   rule      = aws_cloudwatch_event_rule.console.name
