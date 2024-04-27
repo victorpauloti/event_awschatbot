@@ -32,6 +32,12 @@ resource "aws_sns_topic" "aws_ec2" {
   tags = var.default_tags
 }
 
+resource "aws_sns_topic_subscription" "event_slack_target" {
+  topic_arn = "aws_sns_topic.aws_ec2.arn"
+  protocol  = "https"
+  endpoint  = "https://global.sns-api.chatbot.amazonaws.com"
+}
+
 resource "aws_sns_topic_policy" "default" {
   arn    = aws_sns_topic.aws_ec2.arn
   policy = data.aws_iam_policy_document.sns_topic_policy.json
