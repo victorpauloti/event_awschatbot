@@ -8,7 +8,7 @@ on:
 env:
   TF_CLOUD_ORGANIZATION: "VPAULO_COM"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
-  TF_WORKSPACE: "terraform"
+  TF_WORKSPACE: "event_awschatbot"
   CONFIG_DIRECTORY: "./"
 
 jobs:
