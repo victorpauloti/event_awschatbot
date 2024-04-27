@@ -19,7 +19,7 @@ resource "aws_cloudwatch_event_rule" "rule_chatbot" {
 resource "aws_cloudwatch_event_target" "sns" {
   rule      = aws_cloudwatch_event_rule.rule_chatbot.name
   target_id = "SendToSNS"
-  arn       = data.aws_sns_topic.existing.arn
+  arn       = aws_sns_topic.aws_ec2.arn
 }
 
 # se a policy ja existir
