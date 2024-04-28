@@ -6,7 +6,7 @@ resource "aws_cloudwatch_event_rule" "rule_chatbot" {
     "source": ["aws.ec2"],
     detail-type = ["EC2 Instance State-change Notification"]
     "detail" :{
-      "instance-id":["i-1234567890abcdef0"],
+      "instance-id":["i-0fac74e47a2d9b9cc"],
       "state": ["stopped"]
     }
     })
